@@ -27,16 +27,17 @@ function Signup({ setUser }) {
 
   const navigate = useNavigate();
 
-  //This function is checking if the name is longer than 0 characters. If it is, it returns true. If it's not, it returns false.
+  //This function should check if the name is longer than 3 characters. If it is, it returns true. If it's not, it returns false.
   function testName(value) {
-    if (value.length > 0) {
+    //this "value" will be whatever the user types on the name input, a string in Javascript. How could you check if the length of this string is greater than 3?
+    if (value) {
       return true;
     } else {
       return false;
     }
   }
 
-  //This function deals with the nameChange. Besides saving the new value of the name, it also checks if the name is valid. If it is, it sets the value of validName to true. If it's not, it sets it to false.
+  //This function deals with the nameChange (no need to alter it). Besides saving the new value of the name, it also checks if the name is valid. If it is, it sets the value of validName to true. If it's not, it sets it to false.
   function handleNameChange(value) {
     setName(value);
     if (testName(value)) {
@@ -46,15 +47,17 @@ function Signup({ setUser }) {
     }
   }
 
-  //Same as the testName function, but for the email. It checks if the email has an "@" and a ".". If it does, it returns true. If it doesn't, it returns false.
+  //Same as the testName function, but for the email. It should check if the email has an "@" and a ".". If it does, it returns true. If it doesn't, it returns false.
   function testEmail(value) {
-    if (value.includes("@") && value.includes(".")) {
+    //In this case "value" will be the email the user types in the email input. How could you check if this email "includes" an @ and .?
+    if (value) {
       return true;
     } else {
       return false;
     }
   }
 
+  // Same as the handleNameChange, no need to alter it
   function handleEmailChange(value) {
     setEmail(value);
     if (testEmail(value)) {
@@ -64,16 +67,9 @@ function Signup({ setUser }) {
     }
   }
 
-  // Here we'll have all the functions to test the password. We have one function for each validation we want to test. We're using regular expressions to test the values. If you're not familiar with regular expressions, don't worry.
+  // Here we'll have all the functions to test the password. We have one function for each validation we want to test. We're using regular expressions to test the values. If you're not familiar with regular expressions, don't worry, you'll only need to change one of them. The others are already set up for you.
 
-  function testLength(value) {
-    if (value.length > 6) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  //This function checks if the password has a special character. If it does, it returns true. If it doesn't, it returns false. The confusing looking array of characters you see is just a regular expression that checks for any of those characters in the string. the ".test" method is invoked with a string as a value and checks if that string matches the pattern set up by the regular expression.
   function testSpecialCharacter(value) {
     if (/[!@#$%^&*(),.?":{}|<>]/g.test(value)) {
       return true;
@@ -82,6 +78,7 @@ function Signup({ setUser }) {
     }
   }
 
+  //This function checks if the password has an uppercase letter. If it does, it returns true. If it doesn't, it returns false.
   function testUpperCase(value) {
     if (/[A-Z]/.test(value)) {
       return true;
@@ -90,8 +87,18 @@ function Signup({ setUser }) {
     }
   }
 
+  //This function should test if the password has a lowercase letter. Looking at the function above, can you guess how to do it?
   function testLowerCase(value) {
-    if (/[a-z]/.test(value)) {
+    if (value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //This function should check if the password is longer than 8 characters. If it is, it returns true. If it's not, it returns false.
+  function testLength(value) {
+    if (value) {
       return true;
     } else {
       return false;
@@ -106,30 +113,16 @@ function Signup({ setUser }) {
 
   //This function will run all the tests for the password. If all the tests pass, it will set the value of validPassword to true. If any of the tests fail, it will set the value of validPassword to false.
   function validatePassword(value) {
+    //Here we call the testLength function with the password to check if it passes the test
     if (testLength(value)) {
       setValidLength(true);
     } else {
       setValidLength(false);
     }
 
-    if (testSpecialCharacter(value)) {
-      setValidSpecialCharacter(true);
-    } else {
-      setValidSpecialCharacter(false);
-    }
+    // Now we need to do the EXACT same thing with the rest of the tests for the password. Call the functions testSpecialCharacter, testUpperCase, and testLowerCase with the password as a parameter. If the test passes, set the value of the corresponding variable to true. If it doesn't, set it to false.
 
-    if (testUpperCase(value)) {
-      setValidUpperCase(true);
-    } else {
-      setValidUpperCase(false);
-    }
-
-    if (testLowerCase(value)) {
-      setValidLowerCase(true);
-    } else {
-      setValidLowerCase(false);
-    }
-
+    // Finally, we're running all the functions again and if all of them return true, we set the value of validPassword to true. If any of them return false, we set it to false.
     if (
       testLength(value) &&
       testSpecialCharacter(value) &&
@@ -142,6 +135,7 @@ function Signup({ setUser }) {
     }
   }
 
+  //This function is triggered when the form is submitted. It will prevent the default behavior of the form, call the setUser function with the name, email, and password as parameters, and navigate to the /products page.
   const handleSubmit = e => {
     e.preventDefault();
     setUser({ name, email, password });
@@ -174,7 +168,6 @@ function Signup({ setUser }) {
           type="email"
           id="email"
           value={email}
-          className={validEmail ? "success-border" : "error-border"}
           onChange={e => handleEmailChange(e.target.value)}
         />
         <label htmlFor="password">Password</label>
@@ -182,29 +175,16 @@ function Signup({ setUser }) {
           type="password"
           id="password"
           value={password}
-          className={validPassword ? "success-border" : "error-border"}
           onChange={e => handlePasswordChange(e.target.value)}
         />
         <div id="error-messages">
-          <p className={validLength ? "success" : "error"}>
-            {validLength ? " ✔ " : "✘ "}
-            Must be at least 8 characters
-          </p>
+          <p>Must be at least 8 characters</p>
 
-          <p className={validSpecialCharacter ? "success" : "error"}>
-            {validSpecialCharacter ? " ✔ " : "✘ "}
-            Must contain a special character
-          </p>
+          <p>Must contain a special character</p>
 
-          <p className={validUpperCase ? "success" : "error"}>
-            {validUpperCase ? " ✔ " : "✘ "}
-            Must contain an uppercase letter
-          </p>
+          <p>Must contain an uppercase letter</p>
 
-          <p className={validLowerCase ? "success" : "error"}>
-            {validLowerCase ? " ✔ " : "✘ "}
-            Must contain a lowercase letter
-          </p>
+          <p>Must contain a lowercase letter</p>
         </div>
         <button
           type="submit"

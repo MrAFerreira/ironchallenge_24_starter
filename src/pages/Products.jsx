@@ -3,14 +3,15 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 function Products({ user }) {
-  const [products, setProducts] = useState(productsData);
+  //We should probably use the data we have for this products value
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // if (!user) return <Navigate to="/signup" />;
+  if (!user) return <Navigate to="/signup" />;
 
   return (
     <div>
@@ -36,18 +37,7 @@ function Products({ user }) {
             {filteredProducts.map(product => (
               <tr key={product.id}>
                 <td>{product.id}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td style={{ display: "flex", gap: "1rem" }}>
-                  {product.color}
-                  <div
-                    className="color-sample"
-                    style={{
-                      backgroundColor: product.color,
-                      width: "20px",
-                      height: "20px",
-                    }}></div>
-                </td>
+                {/* We should show the other properties of the products below */}
               </tr>
             ))}
           </tbody>
