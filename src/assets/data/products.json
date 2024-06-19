@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Keychain",
+    "color": "#1BF928",
+    "price": "2"
+  },
+  {
+    "id": 2,
+    "name": "Protective Case",
+    "color": "#398ED9",
+    "price": "6"
+  },
+  {
+    "id": 3,
+    "name": "Playstation 5 IH Edition",
+    "color": "#9CF76D",
+    "price": "770"
+  },
+  {
+    "id": 4,
+    "name": "Nintendo Switch",
+    "color": "#F9CDB0",
+    "price": "300"
+  },
+  {
+    "id": 5,
+    "name": "Xbox Series X",
+    "color": "#5A121D",
+    "price": "500"
+  },
+  {
+    "id": 6,
+    "name": "Hoodie",
+    "color": "#5019CC",
+    "price": "25"
+  },
+  {
+    "id": 7,
+    "name": "Mug",
+    "color": "#AFB276",
+    "price": "10"
+  },
+  {
+    "id": 8,
+    "name": "T-shirt",
+    "color": "#0FDAFD",
+    "price": "15"
+  },
+  {
+    "id": 9,
+    "name": "Tote Bag",
+    "color": "#980822",
+    "price": "3"
+  },
+  {
+    "id": 10,
+    "name": "Rubber Ducky",
+    "color": "#FFFF00",
+    "price": "10000"
+  }
+]
